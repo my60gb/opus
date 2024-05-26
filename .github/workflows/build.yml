@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11, macos-12, macos-13, ubuntu-20.04, ubuntu-22.04, windows-2019]
-        node: [18, 20, 21]
+        os: [ubuntu-20.04, ubuntu-22.04, windows-2019]
+        node: [20]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -36,11 +36,11 @@ jobs:
     name: Build x86_64 (musl)
     runs-on: ubuntu-latest
     container:
-      image: node:${{ matrix.node }}-alpine
+      image: node:lts-alpine
     strategy:
       fail-fast: false
       matrix:
-        node: [18, 20, 21]
+        node: [20]
     steps:
       - name: Setup env with Node v${{ matrix.node }}
         run: |
