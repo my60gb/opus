@@ -9,11 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04,ubuntu-24.04, windows-2019]
-        node: [20,22]
+        os:
+          [macos-11, macos-12, macos-13, macos-14, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, windows-2019, windows-2022]
+        node: [18, 20, 22]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node v${{ matrix.node }}
         uses: actions/setup-node@v3
@@ -36,20 +37,19 @@ jobs:
   build_musl_x86_64:
     name: Prebuild x86_64 (musl)
     runs-on: ubuntu-latest
-    container:
-      image: node:20-alpine3.20
     strategy:
       fail-fast: false
       matrix:
-        node: [20,22]
+        container: ['node:18-alpine3.20', 'node:20-alpine3.20', 'node:22-alpine3.20']
+
     steps:
-      - name: Setup env with Node v${{ matrix.node }}
+      - name: Setup env for musl based distros
         run: |
           apk add --update
           apk add --no-cache ca-certificates git curl build-base python3 g++ make
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm install --unsafe-perm --build-from-source
@@ -65,22 +65,27 @@ jobs:
           path: 'build/stage/**/*.tar.gz'
 
   build_docker_x86_64:
-    name: Prebuild x86_64 for node docker
+    name: Prebuild x86_64 for node docker images
     runs-on: ubuntu-latest
-    container:
-      image: node
     strategy:
-      fail-fast: false
       matrix:
-        node: [20,22]
+        container:
+          [
+            'node:18-bullseye',
+            'node:20-bullseye',
+            'node:22-bullseye',
+            'node:18-bookworm',
+            'node:20-bookworm',
+            'node:22-bookworm',
+          ]
     steps:
-      - name: Setup env with Node v${{ matrix.node }}
+      - name: Setup env
         run: |
           apt-get update
           apt-get install -y build-essential python3 git curl
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm install --unsafe-perm --build-from-source
@@ -94,4 +99,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           path: 'build/stage/**/*.tar.gz'
-    
