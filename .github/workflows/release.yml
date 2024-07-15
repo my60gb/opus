@@ -71,7 +71,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        container: ['node:18-bullseye','node:20-bullseye','node:22-bullseye','node:18-bookworm','node:20-bookworm', 'node:22-bookworm',]
+        container:
+          [
+            'node:18-bullseye',
+            'node:20-bullseye',
+            'node:22-bullseye',
+            'node:18-bookworm',
+            'node:20-bookworm',
+            'node:22-bookworm',
+          ]
     container:
       image: ${{ matrix.container }}
     steps:
