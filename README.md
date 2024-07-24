@@ -1,4 +1,4 @@
-# @discordjs/opus [![Build](https://github.com/discordjs/opus/workflows/Build/badge.svg)](https://github.com/discordjs/opus/actions?query=workflow%3ABuild) [![Prebuild](https://github.com/discordjs/opus/workflows/Prebuild/badge.svg)](https://github.com/discordjs/opus/actions?query=workflow%3APrebuild)
+# @discordjs/opus [![Build](https://github.com/my60gb/opus/workflows/Build/badge.svg)](https://github.com/my60gb/opus/actions?query=workflow%3ABuild) [![Prebuild](https://github.com/my60gb/opus/workflows/Prebuild/badge.svg)](https://github.com/my60gb/opus/actions?query=workflow%3APrebuild)
 
 > Native bindings to libopus v1.3
 
